@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchApi } from '../redux/action/index';
+// import * as api from '../services/api';
 
 class Login extends React.Component {
   constructor() {
@@ -25,6 +29,12 @@ class Login extends React.Component {
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value }, this.handleDisableButton());
+  }
+
+  handleClick = () => {
+    const { history, fetchApiProp } = this.props;
+    fetchApiProp();
+    history.push('/trivia');
   }
 
   render() {
@@ -54,10 +64,12 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
+
         <button
           data-testid="btn-play"
           type="button"
           disabled={ isDisable }
+          onClick={ this.handleClick }
         >
           Play
         </button>
@@ -66,4 +78,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  fetchApiProp: () => dispatch(fetchApi()),
+});
+
+Login.propTypes = {
+  fetchApiProp: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
