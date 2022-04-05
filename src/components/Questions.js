@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as api from '../services/api';
+import { fetchApi } from '../redux/action';
 
 class Questions extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Questions extends Component {
 
     this.state = {
       trivia: [],
+      counter: 0,
     };
   }
 
@@ -16,13 +18,19 @@ class Questions extends Component {
     this.handleFetchTrivia();
   }
 
+  handleClick = () => {
+    this.setState((previous) => ({
+      counter: previous.counter + 1,
+    }));
+  }
+
   handleFetchTrivia = async () => {
-    const { token, fetchApiProp } = this.props;
+    const { token, fetchApiProps } = this.props;
     const totalQuestions = 5;
     const responseLimit = 3;
     const data = await api.fetchTriviaAPI(totalQuestions, token);
     if (data.response_code === responseLimit) {
-      api.fetchApiProp();
+      fetchApiProps();
     } else {
       this.setState({
         trivia: data && data.results,
@@ -31,7 +39,27 @@ class Questions extends Component {
   };
 
   render() {
-    return <>oi</>;
+    const { trivia, counter } = this.state;
+    return (
+      <section className="container-questions">
+        <div className="question-container">
+          <h2
+            data-testid="question-category"
+          >
+            { trivia.length > 0 && trivia[counter].category }
+          </h2>
+          <h2
+            data-testid="question-text"
+          >
+            { trivia.length > 0 && trivia[counter].question }
+          </h2>
+        </div>
+        <div>
+          <h1>Opções</h1>
+        </div>
+        <div>oi</div>
+      </section>
+    );
   }
 }
 
@@ -40,10 +68,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchApiProp: () => dispatch(fetchApi()),
+  fetchApiProps: () => dispatch(fetchApi()),
 });
 
 Questions.propTypes = {
+  fetchApiProps: PropTypes.func,
   token: PropTypes.string,
 }.isRequired;
 
