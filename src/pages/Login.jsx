@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchApi } from '../redux/action/index';
+import { fetchApi, setPlayer } from '../redux/action/index';
 import '../assets/login.css';
 import config from '../images/configuracao.png';
-// import * as api from '../services/api';
 
 class Login extends React.Component {
   constructor() {
@@ -34,7 +33,9 @@ class Login extends React.Component {
   }
 
   handleClick = () => {
-    const { history, fetchApiProp } = this.props;
+    const { name, email } = this.state;
+    const { history, fetchApiProp, dispatchSetPlayer } = this.props;
+    dispatchSetPlayer(name, email);
     fetchApiProp();
     history.push('/trivia');
   }
@@ -105,10 +106,12 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchApiProp: () => dispatch(fetchApi()),
+  dispatchSetPlayer: (name, gravatarEmail) => dispatch(setPlayer(name, gravatarEmail)),
 });
 
 Login.propTypes = {
   fetchApiProp: PropTypes.func,
+  dispatchSetPlayer: PropTypes.func,
   history: PropTypes.instanceOf(Object),
 }.isRequired;
 
