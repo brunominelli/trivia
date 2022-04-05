@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 class Trivia extends Component {
   render() {
     return (
-      <div>Trivia</div>
+      <div>
+        Trivia
+      </div>
     );
   }
 }

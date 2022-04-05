@@ -3,6 +3,7 @@ import { fetchTokenAPI } from '../../services/api';
 export const GET_TOKEN = 'GET_TOKEN';
 export const GET_TOKEN_SUCCESS = 'GET_TOKEN_SUCCESS';
 export const GET_TOKEN_FAILURE = 'GET_TOKEN_FAILURE';
+export const SET_PLAYER = 'SET_PLAYER';
 
 export const tokenAction = () => ({ type: GET_TOKEN });
 export const tokenActionSuccess = (json) => (
