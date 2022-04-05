@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import Questions from '../components/Questions';
+import Header from '../components/Header';
 
 class Trivia extends Component {
   render() {
     return (
-      <section className="trivia-container">
-        <Questions />
-      </section>
+      <div>
+        Trivia
+        <Header />
+      </div>
     );
   }
 }
