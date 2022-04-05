@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { fetchApi } from '../redux/action/index';
 import '../assets/login.css';
 import config from '../images/configuracao.png';
-// import * as api from '../services/api';
 
 class Login extends React.Component {
   constructor() {

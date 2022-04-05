@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import Questions from '../components/Questions';
 
 class Trivia extends Component {
   render() {
     return (
-      <div>
-        Trivia
-      </div>
+      <section className="trivia-container">
+        <Questions />
+      </section>
     );
   }
 }
