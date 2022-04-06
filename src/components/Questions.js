@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchApi } from '../redux/action';
+import '../assets/questions.css';
+import { fetchApi, getQuestions } from '../redux/action';
 import * as api from '../services/api';
 import Timer from './Timer';
-import '../assets/questions.css';
 
 class Questions extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class Questions extends Component {
       loading: true,
       trivia: [],
       counter: 0,
+      hasAnswered: false,
       isDisabled: false,
     };
   }
@@ -33,10 +34,11 @@ class Questions extends Component {
   }
 
   handleFetchTrivia = async () => {
-    const { token, fetchApiProps } = this.props;
+    const { token, fetchApiProps, getQuestionsProps } = this.props;
     const totalQuestions = 5;
     const responseLimit = 3;
     const data = await api.fetchTriviaAPI(totalQuestions, token);
+    getQuestionsProps(data);
 
     if (data.response_code === responseLimit) {
       fetchApiProps();
@@ -47,6 +49,19 @@ class Questions extends Component {
     }
   };
 
+  nextQuestion = ({ target }) => {
+    const arrayAnswers = target.previousSibling.childNodes;
+
+    arrayAnswers.forEach((element) => {
+      element.classList.remove('true', 'false');
+    });
+
+    this.setState((prevState) => ({
+      hasAnswered: false,
+      counter: prevState.counter + 1,
+    }));
+  };
+
   handleDisabled = (time) => {
     if (time === 0) {
       this.setState({
@@ -55,11 +70,15 @@ class Questions extends Component {
     }
   }
 
-  handleClick = () => {
-    this.setState((previous) => ({
-      counter: previous.counter + 1,
-    }));
-  }
+  displayButton = () => (
+    <button
+      data-testid="btn-next"
+      type="button"
+      onClick={ this.nextQuestion }
+    >
+      Next
+    </button>
+  )
 
   handleClickAnswer = ({ target }) => {
     const arrayAnswers = target.parentNode.childNodes;
@@ -70,11 +89,14 @@ class Questions extends Component {
         element.classList.add('false');
       }
     });
+
+    this.setState({
+      hasAnswered: true,
+    });
   }
 
   render() {
-    const { loading, trivia, counter, isDisabled } = this.state;
-    const shuffle = 0.5;
+    const { loading, trivia, counter, hasAnswered, isDisabled } = this.state;
 
     return (
       <section className="container-questions">
@@ -103,16 +125,18 @@ class Questions extends Component {
                   && [
                     trivia[counter].correct_answer,
                     ...trivia[counter].incorrect_answers,
-                  ].sort(() => Math.random() - shuffle)
-                    .map((question, index) => (
+                  ].map((question, index) => {
+                    const { answers } = this.props;
+
+                    return (
                       <button
                         data-testid={
-                          question === trivia[counter].correct_answer
+                          answers[counter][index] === trivia[counter].correct_answer
                             ? 'correct-answer'
                             : `wrong-answer-${index}`
                         }
                         id={
-                          question === trivia[counter].correct_answer
+                          answers[counter][index] === trivia[counter].correct_answer
                             ? 'correct-answer'
                             : `wrong-answer-${index}`
                         }
@@ -122,13 +146,15 @@ class Questions extends Component {
                         onClick={ this.handleClickAnswer }
                         key={ index }
                       >
-                        {question}
+                        {answers[counter][index]}
                       </button>
-                    ))}
+                    );
+                  })}
               </div>
               <Timer handleDisabled={ this.handleDisabled } />
             </>
           )}
+        {hasAnswered && this.displayButton()}
       </section>
     );
   }
@@ -136,14 +162,17 @@ class Questions extends Component {
 
 const mapStateToProps = (state) => ({
   token: state.token,
+  answers: state.questions.shuffledResults,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchApiProps: () => dispatch(fetchApi()),
+  getQuestionsProps: (data) => dispatch(getQuestions(data)),
 });
 
 Questions.propTypes = {
   fetchApiProps: PropTypes.func,
+  getQuestions: PropTypes.func,
   token: PropTypes.string,
 }.isRequired;
 
