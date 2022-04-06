@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchApi } from '../redux/action';
 import * as api from '../services/api';
+import '../assets/questions.css';
 
 class Questions extends Component {
   constructor(props) {
@@ -50,6 +51,17 @@ class Questions extends Component {
     }));
   }
 
+  handleClickAnswer = ({ target }) => {
+    const arrayAnswers = target.parentNode.childNodes;
+    arrayAnswers.forEach((element) => {
+      if (element.id.includes('correct')) {
+        element.classList.add('true');
+      } else {
+        element.classList.add('false');
+      }
+    });
+  }
+
   render() {
     const { loading, trivia, counter } = this.state;
     const shuffle = 0.5;
@@ -61,11 +73,11 @@ class Questions extends Component {
           : (
             <>
               <div className="question-container">
-                <h2
+                <h3
                   data-testid="question-category"
                 >
                   { trivia.length > 0 && trivia[counter].category }
-                </h2>
+                </h3>
                 <h2
                   data-testid="question-text"
                 >
@@ -73,6 +85,7 @@ class Questions extends Component {
                 </h2>
               </div>
               <div
+                className="answer-container"
                 data-testid="answer-options"
               >
                 {/* Referência randomizar array: https://flaviocopes.com/how-to-shuffle-array-javascript/ */}
@@ -88,6 +101,16 @@ class Questions extends Component {
                             ? 'correct-answer'
                             : `wrong-answer-${index}`
                         }
+                        id={
+                          question === trivia[counter].correct_answer
+                            ? 'correct-answer'
+                            : `wrong-answer-${index}`
+                        }
+                        className="div-answers"
+                        role="button"
+                        onClick={ this.handleClickAnswer }
+                        onKeyDown={ () => {} }
+                        tabIndex={ index }
                         key={ index }
                       >
                         {question}
