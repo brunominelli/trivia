@@ -12,6 +12,7 @@ class Questions extends Component {
       loading: true,
       trivia: [],
       counter: 0,
+      hasAnswered: false,
     };
   }
 
@@ -45,13 +46,29 @@ class Questions extends Component {
   };
 
   handleClick = () => {
-    this.setState((previous) => ({
-      counter: previous.counter + 1,
+    this.setState({
+      hasAnswered: true,
+    });
+  }
+
+  nextQuestion = () => {
+    this.setState((prevState) => ({
+      hasAnswered: false,
+      counter: prevState.counter + 1,
     }));
   }
 
+  displayButton = () => (
+    <button
+      type="button"
+      onClick={ this.nextQuestion }
+    >
+      Next
+    </button>
+  )
+
   render() {
-    const { loading, trivia, counter } = this.state;
+    const { loading, trivia, counter, hasAnswered } = this.state;
     const shuffle = 0.5;
 
     return (
@@ -82,20 +99,23 @@ class Questions extends Component {
                     ...trivia[counter].incorrect_answers,
                   ].sort(() => Math.random() - shuffle)
                     .map((question, index) => (
-                      <div
+                      <button
                         data-testid={
                           question === trivia[counter].correct_answer
                             ? 'correct-answer'
                             : `wrong-answer-${index}`
                         }
                         key={ index }
+                        type="button"
+                        onClick={ this.handleClick }
                       >
                         {question}
-                      </div>
+                      </button>
                     ))}
               </div>
             </>
           )}
+        {hasAnswered && this.displayButton()}
       </section>
     );
   }
