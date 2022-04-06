@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import '../assets/questions.css';
 import { fetchApi, getQuestions } from '../redux/action';
 import * as api from '../services/api';
+import Timer from './Timer';
 
 class Questions extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Questions extends Component {
       trivia: [],
       counter: 0,
       hasAnswered: false,
+      isDisabled: false,
     };
   }
 
@@ -58,6 +60,14 @@ class Questions extends Component {
       hasAnswered: false,
       counter: prevState.counter + 1,
     }));
+  };
+
+  handleDisabled = (time) => {
+    if (time === 0) {
+      this.setState({
+        isDisabled: true,
+      });
+    }
   }
 
   displayButton = () => (
@@ -86,7 +96,7 @@ class Questions extends Component {
   }
 
   render() {
-    const { loading, trivia, counter, hasAnswered } = this.state;
+    const { loading, trivia, counter, hasAnswered, isDisabled } = this.state;
 
     return (
       <section className="container-questions">
@@ -119,7 +129,7 @@ class Questions extends Component {
                     const { answers } = this.props;
 
                     return (
-                      <div
+                      <button
                         data-testid={
                           answers[counter][index] === trivia[counter].correct_answer
                             ? 'correct-answer'
@@ -130,19 +140,18 @@ class Questions extends Component {
                             ? 'correct-answer'
                             : `wrong-answer-${index}`
                         }
-                        className="div-answers"
-                        role="button"
-                        onClick={ this.handleClickAnswer }
-                        onKeyDown={ () => {} }
-                        tabIndex={ index }
-                        key={ index }
                         type="button"
+                        className="div-answers"
+                        disabled={ isDisabled }
+                        onClick={ this.handleClickAnswer }
+                        key={ index }
                       >
                         {answers[counter][index]}
-                      </div>
+                      </button>
                     );
                   })}
               </div>
+              <Timer handleDisabled={ this.handleDisabled } />
             </>
           )}
         {hasAnswered && this.displayButton()}
