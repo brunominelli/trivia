@@ -29,7 +29,7 @@ class Login extends React.Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value }, this.handleDisableButton());
+    this.setState({ [name]: value }, this.handleDisableButton);
   }
 
   handleClick = () => {
