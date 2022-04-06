@@ -50,7 +50,7 @@ class Questions extends Component {
   };
 
   nextQuestion = ({ target }) => {
-    const arrayAnswers = target.previousSibling.childNodes;
+    const arrayAnswers = target.parentNode.querySelector('.answer-container').childNodes;
 
     arrayAnswers.forEach((element) => {
       element.classList.remove('true', 'false');
