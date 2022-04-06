@@ -4,6 +4,7 @@ export const SET_PLAYER = 'SET_PLAYER';
 export const GET_TOKEN = 'GET_TOKEN';
 export const GET_TOKEN_SUCCESS = 'GET_TOKEN_SUCCESS';
 export const GET_TOKEN_FAILURE = 'GET_TOKEN_FAILURE';
+export const GET_QUESTIONS = 'GET_QUESTIONS';
 
 export const setPlayer = (name, gravatarEmail) => (
   { type: SET_PLAYER, name, gravatarEmail });
@@ -22,3 +23,5 @@ export function fetchApi() {
       (error) => dispatch(tokenActionFailure(error)),
     );
 }
+
+export const getQuestions = (data) => ({ type: GET_QUESTIONS, data });
