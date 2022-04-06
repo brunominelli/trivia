@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container-questions {
+  height: 500px;
+}
+
+.question-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.answer-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: space-evenly;
+}
+
+.div-answers {
+  align-items: center;
+  border: 1px solid black;
+  cursor: pointer;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  width: 300px;
+}
+
+.true {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.false {
+  border: 3px solid red;
+}
