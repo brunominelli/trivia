@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchApi } from '../redux/action';
 import * as api from '../services/api';
+import Timer from './Timer';
 
 class Questions extends Component {
   constructor(props) {
@@ -96,6 +97,7 @@ class Questions extends Component {
               </div>
             </>
           )}
+        <Timer />
       </section>
     );
   }
