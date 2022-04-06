@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchApi } from '../redux/action';
 import * as api from '../services/api';
+import Timer from './Timer';
 import '../assets/questions.css';
 
 class Questions extends Component {
@@ -13,6 +14,7 @@ class Questions extends Component {
       loading: true,
       trivia: [],
       counter: 0,
+      isDisabled: false,
     };
   }
 
@@ -45,6 +47,14 @@ class Questions extends Component {
     }
   };
 
+  handleDisabled = (time) => {
+    if (time === 0) {
+      this.setState({
+        isDisabled: true,
+      });
+    }
+  }
+
   handleClick = () => {
     this.setState((previous) => ({
       counter: previous.counter + 1,
@@ -63,7 +73,7 @@ class Questions extends Component {
   }
 
   render() {
-    const { loading, trivia, counter } = this.state;
+    const { loading, trivia, counter, isDisabled } = this.state;
     const shuffle = 0.5;
 
     return (
@@ -95,7 +105,7 @@ class Questions extends Component {
                     ...trivia[counter].incorrect_answers,
                   ].sort(() => Math.random() - shuffle)
                     .map((question, index) => (
-                      <div
+                      <button
                         data-testid={
                           question === trivia[counter].correct_answer
                             ? 'correct-answer'
@@ -106,17 +116,17 @@ class Questions extends Component {
                             ? 'correct-answer'
                             : `wrong-answer-${index}`
                         }
+                        type="button"
                         className="div-answers"
-                        role="button"
+                        disabled={ isDisabled }
                         onClick={ this.handleClickAnswer }
-                        onKeyDown={ () => {} }
-                        tabIndex={ index }
                         key={ index }
                       >
                         {question}
-                      </div>
+                      </button>
                     ))}
               </div>
+              <Timer handleDisabled={ this.handleDisabled } />
             </>
           )}
       </section>
