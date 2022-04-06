@@ -16,12 +16,9 @@ export const tokenActionSuccess = (json) => (
 export const tokenActionFailure = (error) => ({ type: GET_TOKEN_FAILURE, error });
 
 export function fetchApi() {
-  return async (dispatch) => {
-    dispatch(tokenAction());
-    return fetchTokenAPI()
-      .then(
-        (json) => dispatch(tokenActionSuccess(json)),
-        (error) => dispatch(tokenActionFailure(error)),
-      );
-  };
+  return async (dispatch) => fetchTokenAPI()
+    .then(
+      (json) => dispatch(tokenActionSuccess(json)),
+      (error) => dispatch(tokenActionFailure(error)),
+    );
 }

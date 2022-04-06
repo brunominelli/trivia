@@ -1,37 +1,117 @@
-// import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchApi } from '../redux/action';
+import * as api from '../services/api';
 
-// class Questions extends Component {
-//   render() {
-//     return (
-//       <>oi</>
-//     );
-//   }
-// }
+class Questions extends Component {
+  constructor(props) {
+    super(props);
 
-// export default Questions;
+    this.state = {
+      loading: true,
+      trivia: [],
+      counter: 0,
+    };
+  }
 
-// Pegar a pergunta
+  componentDidUpdate(prevProps) {
+    const { token } = this.props;
 
-// ENDPOINT: https://opentdb.com/api.php?amount=${quantidade-de-perguntas-retornadas}&token=${seu-token-aqui}]
+    if (token !== prevProps.token) {
+      this.receiveToken();
+    }
+  }
 
-// Recomendado 5 perguntas
+  receiveToken = () => {
+    this.handleFetchTrivia();
 
-/* {
-   "response_code":0,
-   "results":[
-      {
-         "category":"Entertainment: Video Games",
-         "type":"multiple",
-         "difficulty":"easy",
-         "question":"What is the first weapon you acquire in Half-Life?",
-         "correct_answer":"A crowbar",
-         "incorrect_answers":[
-            "A pistol",
-            "The H.E.V suit",
-            "Your fists"
-         ]
-      }
-   ]
-} */
+    this.setState({ loading: false });
+  }
 
-// Vamos fazer um map do result
+  handleFetchTrivia = async () => {
+    const { token, fetchApiProps } = this.props;
+    const totalQuestions = 5;
+    const responseLimit = 3;
+    const data = await api.fetchTriviaAPI(totalQuestions, token);
+
+    if (data.response_code === responseLimit) {
+      fetchApiProps();
+    } else {
+      this.setState({
+        trivia: data && data.results,
+      });
+    }
+  };
+
+  handleClick = () => {
+    this.setState((previous) => ({
+      counter: previous.counter + 1,
+    }));
+  }
+
+  render() {
+    const { loading, trivia, counter } = this.state;
+    const shuffle = 0.5;
+
+    return (
+      <section className="container-questions">
+        {loading
+          ? (<div>Carregando...</div>)
+          : (
+            <>
+              <div className="question-container">
+                <h2
+                  data-testid="question-category"
+                >
+                  { trivia.length > 0 && trivia[counter].category }
+                </h2>
+                <h2
+                  data-testid="question-text"
+                >
+                  { trivia.length > 0 && trivia[counter].question }
+                </h2>
+              </div>
+              <div
+                data-testid="answer-options"
+              >
+                {/* Referência randomizar array: https://flaviocopes.com/how-to-shuffle-array-javascript/ */}
+                { trivia.length > 0
+                  && [
+                    trivia[counter].correct_answer,
+                    ...trivia[counter].incorrect_answers,
+                  ].sort(() => Math.random() - shuffle)
+                    .map((question, index) => (
+                      <div
+                        data-testid={
+                          question === trivia[counter].correct_answer
+                            ? 'correct-answer'
+                            : `wrong-answer-${index}`
+                        }
+                        key={ index }
+                      >
+                        {question}
+                      </div>
+                    ))}
+              </div>
+            </>
+          )}
+      </section>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  token: state.token,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchApiProps: () => dispatch(fetchApi()),
+});
+
+Questions.propTypes = {
+  fetchApiProps: PropTypes.func,
+  token: PropTypes.string,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);
