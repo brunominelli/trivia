@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchApi } from '../redux/action';
+import '../assets/questions.css';
+import { fetchApi, getQuestions } from '../redux/action';
 import * as api from '../services/api';
 
 class Questions extends Component {
@@ -31,10 +32,11 @@ class Questions extends Component {
   }
 
   handleFetchTrivia = async () => {
-    const { token, fetchApiProps } = this.props;
+    const { token, fetchApiProps, getQuestionsProps } = this.props;
     const totalQuestions = 5;
     const responseLimit = 3;
     const data = await api.fetchTriviaAPI(totalQuestions, token);
+    getQuestionsProps(data);
 
     if (data.response_code === responseLimit) {
       fetchApiProps();
@@ -45,13 +47,13 @@ class Questions extends Component {
     }
   };
 
-  handleClick = () => {
-    this.setState({
-      hasAnswered: true,
-    });
-  }
+  nextQuestion = ({ target }) => {
+    const arrayAnswers = target.previousSibling.childNodes;
 
-  nextQuestion = () => {
+    arrayAnswers.forEach((element) => {
+      element.classList.remove('true', 'false');
+    });
+
     this.setState((prevState) => ({
       hasAnswered: false,
       counter: prevState.counter + 1,
@@ -60,6 +62,7 @@ class Questions extends Component {
 
   displayButton = () => (
     <button
+      data-testid="btn-next"
       type="button"
       onClick={ this.nextQuestion }
     >
@@ -67,9 +70,23 @@ class Questions extends Component {
     </button>
   )
 
+  handleClickAnswer = ({ target }) => {
+    const arrayAnswers = target.parentNode.childNodes;
+    arrayAnswers.forEach((element) => {
+      if (element.id.includes('correct')) {
+        element.classList.add('true');
+      } else {
+        element.classList.add('false');
+      }
+    });
+
+    this.setState({
+      hasAnswered: true,
+    });
+  }
+
   render() {
     const { loading, trivia, counter, hasAnswered } = this.state;
-    const shuffle = 0.5;
 
     return (
       <section className="container-questions">
@@ -78,11 +95,11 @@ class Questions extends Component {
           : (
             <>
               <div className="question-container">
-                <h2
+                <h3
                   data-testid="question-category"
                 >
                   { trivia.length > 0 && trivia[counter].category }
-                </h2>
+                </h3>
                 <h2
                   data-testid="question-text"
                 >
@@ -90,6 +107,7 @@ class Questions extends Component {
                 </h2>
               </div>
               <div
+                className="answer-container"
                 data-testid="answer-options"
               >
                 {/* Referência randomizar array: https://flaviocopes.com/how-to-shuffle-array-javascript/ */}
@@ -97,21 +115,33 @@ class Questions extends Component {
                   && [
                     trivia[counter].correct_answer,
                     ...trivia[counter].incorrect_answers,
-                  ].sort(() => Math.random() - shuffle)
-                    .map((question, index) => (
-                      <button
+                  ].map((question, index) => {
+                    const { answers } = this.props;
+
+                    return (
+                      <div
                         data-testid={
-                          question === trivia[counter].correct_answer
+                          answers[counter][index] === trivia[counter].correct_answer
                             ? 'correct-answer'
                             : `wrong-answer-${index}`
                         }
+                        id={
+                          answers[counter][index] === trivia[counter].correct_answer
+                            ? 'correct-answer'
+                            : `wrong-answer-${index}`
+                        }
+                        className="div-answers"
+                        role="button"
+                        onClick={ this.handleClickAnswer }
+                        onKeyDown={ () => {} }
+                        tabIndex={ index }
                         key={ index }
                         type="button"
-                        onClick={ this.handleClick }
                       >
-                        {question}
-                      </button>
-                    ))}
+                        {answers[counter][index]}
+                      </div>
+                    );
+                  })}
               </div>
             </>
           )}
@@ -123,14 +153,17 @@ class Questions extends Component {
 
 const mapStateToProps = (state) => ({
   token: state.token,
+  answers: state.questions.shuffledResults,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchApiProps: () => dispatch(fetchApi()),
+  getQuestionsProps: (data) => dispatch(getQuestions(data)),
 });
 
 Questions.propTypes = {
   fetchApiProps: PropTypes.func,
+  getQuestions: PropTypes.func,
   token: PropTypes.string,
 }.isRequired;
 
