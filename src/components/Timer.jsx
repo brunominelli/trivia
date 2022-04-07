@@ -15,12 +15,13 @@ class Timer extends React.Component {
   }
 
   componentDidUpdate() {
-    const { resetTimer, hasAnswered } = this.props;
+    const { resetTimer, hasAnswered, handleTimer } = this.props;
+    const { timerId, time } = this.state;
 
+    if (hasAnswered) handleTimer(clearInterval(timerId), time);
     if (resetTimer && hasAnswered) {
       this.initialTime();
       this.timer();
-      console.log(resetTimer, hasAnswered);
     }
   }
 
@@ -59,7 +60,7 @@ class Timer extends React.Component {
       <p>
         Tempo restante:
         {' '}
-        { time }
+        <span id="time">{ time }</span>
       </p>
     );
   }

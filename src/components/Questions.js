@@ -2,14 +2,13 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../assets/questions.css';
-import { fetchApi, getQuestions } from '../redux/action';
+import { fetchApi, getQuestions, getScore } from '../redux/action';
 import * as api from '../services/api';
 import Timer from './Timer';
 
 class Questions extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       loading: true,
       trivia: [],
@@ -17,20 +16,21 @@ class Questions extends Component {
       hasAnswered: false,
       isDisabled: false,
       resetTimer: false,
+      currentPoints: 0,
     };
   }
 
   componentDidUpdate(prevProps) {
-    const { token } = this.props;
-
+    const { currentPoints } = this.state;
+    const { token, getScoreProps } = this.props;
     if (token !== prevProps.token) {
       this.receiveToken();
     }
+    if (currentPoints !== prevProps.currentPoints) { getScoreProps(currentPoints); }
   }
 
   receiveToken = () => {
     this.handleFetchTrivia();
-
     this.setState({ loading: false });
   }
 
@@ -40,7 +40,6 @@ class Questions extends Component {
     const responseLimit = 3;
     const data = await api.fetchTriviaAPI(totalQuestions, token);
     getQuestionsProps(data);
-
     if (data.response_code === responseLimit) {
       fetchApiProps();
     } else {
@@ -51,12 +50,12 @@ class Questions extends Component {
   };
 
   nextQuestion = ({ target }) => {
+    const { history } = this.props;
+    const { trivia, counter } = this.state;
     const arrayAnswers = target.parentNode.querySelector('.answer-container').childNodes;
-
     arrayAnswers.forEach((element) => {
       element.classList.remove('true', 'false');
     });
-
     this.setState((prevState) => ({
       counter: prevState.counter + 1,
       isDisabled: false,
@@ -67,6 +66,7 @@ class Questions extends Component {
         resetTimer: false,
       });
     });
+    if (counter === trivia.length - 1) { history.push('feedback'); }
   };
 
   handleDisabled = (time) => {
@@ -87,7 +87,48 @@ class Questions extends Component {
     </button>
   )
 
+  handlePoints= (target) => {
+    const { trivia, counter } = this.state;
+
+    const currentTime = +document.querySelector('#time').innerText;
+    const hard = 3;
+    const points = 10;
+    let sum = 0;
+
+    if (target.innerText === trivia[counter].correct_answer) {
+      switch (trivia[counter].difficulty) {
+      case 'easy':
+        sum = points + (currentTime * 1);
+
+        this.setState((prevState) => ({
+          currentPoints: prevState.currentPoints + sum,
+        }));
+        break;
+      case 'medium':
+        sum = points + (currentTime * 2);
+
+        this.setState((prevState) => ({
+          currentPoints: prevState.currentPoints + sum,
+        }));
+        break;
+      case 'hard':
+        sum = points + (currentTime * hard);
+
+        this.setState((prevState) => ({
+          currentPoints: prevState.currentPoints + sum,
+        }));
+        break;
+      default:
+        break;
+      }
+    }
+  }
+
+  handleTimer = (callback) => callback
+
   handleClickAnswer = ({ target }) => {
+    this.handleTimer();
+
     const arrayAnswers = target.parentNode.childNodes;
     arrayAnswers.forEach((element) => {
       if (element.id.includes('correct')) {
@@ -96,6 +137,8 @@ class Questions extends Component {
         element.classList.add('false');
       }
     });
+
+    this.handlePoints(target);
 
     this.setState({
       hasAnswered: true,
@@ -175,6 +218,7 @@ class Questions extends Component {
                 handleTimeout={ this.handleTimeout }
                 resetTimer={ resetTimer }
                 hasAnswered={ hasAnswered }
+                handleTimer={ this.handleTimer }
               />
             </>
           )}
@@ -192,11 +236,13 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchApiProps: () => dispatch(fetchApi()),
   getQuestionsProps: (data) => dispatch(getQuestions(data)),
+  getScoreProps: (score) => dispatch(getScore(score)),
 });
 
 Questions.propTypes = {
   fetchApiProps: PropTypes.func,
   getQuestions: PropTypes.func,
+  getScore: PropTypes.func,
   token: PropTypes.string,
 }.isRequired;
 

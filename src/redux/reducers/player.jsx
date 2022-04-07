@@ -4,7 +4,7 @@
 //   score: 'pontuação',
 //   gravatarEmail: 'email-da-pessoa',
 // };
-import { SET_PLAYER } from '../action';
+import { GET_SCORE, SET_PLAYER } from '../action';
 
 const INITIAL_STATE = {
   name: '',
@@ -20,6 +20,11 @@ const player = (state = INITIAL_STATE, action) => {
       ...state,
       name: action.name,
       gravatarEmail: action.gravatarEmail,
+    };
+  case GET_SCORE:
+    return {
+      ...state,
+      score: action.score,
     };
   default:
     return state;
