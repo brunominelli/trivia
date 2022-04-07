@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../assets/questions.css';
-import { fetchApi, getQuestions, getScore } from '../redux/action';
+import { fetchApi, getQuestions, getScore, saveCorrect } from '../redux/action';
 import * as api from '../services/api';
 import Timer from './Timer';
 
@@ -89,31 +89,28 @@ class Questions extends Component {
 
   handlePoints= (target) => {
     const { trivia, counter } = this.state;
-
+    const { saveCorrectProps } = this.props;
     const currentTime = +document.querySelector('#time').innerText;
     const hard = 3;
     const points = 10;
     let sum = 0;
-
     if (target.innerText === trivia[counter].correct_answer) {
+      saveCorrectProps(1);
       switch (trivia[counter].difficulty) {
       case 'easy':
         sum = points + (currentTime * 1);
-
         this.setState((prevState) => ({
           currentPoints: prevState.currentPoints + sum,
         }));
         break;
       case 'medium':
         sum = points + (currentTime * 2);
-
         this.setState((prevState) => ({
           currentPoints: prevState.currentPoints + sum,
         }));
         break;
       case 'hard':
         sum = points + (currentTime * hard);
-
         this.setState((prevState) => ({
           currentPoints: prevState.currentPoints + sum,
         }));
@@ -128,7 +125,6 @@ class Questions extends Component {
 
   handleClickAnswer = ({ target }) => {
     this.handleTimer();
-
     const arrayAnswers = target.parentNode.childNodes;
     arrayAnswers.forEach((element) => {
       if (element.id.includes('correct')) {
@@ -137,9 +133,7 @@ class Questions extends Component {
         element.classList.add('false');
       }
     });
-
     this.handlePoints(target);
-
     this.setState({
       hasAnswered: true,
     });
@@ -147,7 +141,6 @@ class Questions extends Component {
 
   showAnswer = (hasAnswered, answer) => {
     const { trivia, counter } = this.state;
-
     if (hasAnswered) {
       return answer === trivia[counter].correct_answer
         ? 'true'
@@ -163,7 +156,6 @@ class Questions extends Component {
 
   render() {
     const { loading, trivia, counter, hasAnswered, isDisabled, resetTimer } = this.state;
-
     return (
       <section className="container-questions">
         {loading
@@ -237,12 +229,14 @@ const mapDispatchToProps = (dispatch) => ({
   fetchApiProps: () => dispatch(fetchApi()),
   getQuestionsProps: (data) => dispatch(getQuestions(data)),
   getScoreProps: (score) => dispatch(getScore(score)),
+  saveCorrectProps: (correct) => dispatch(saveCorrect(correct)),
 });
 
 Questions.propTypes = {
   fetchApiProps: PropTypes.func,
-  getQuestions: PropTypes.func,
-  getScore: PropTypes.func,
+  getQuestionsProps: PropTypes.func,
+  getScoreProps: PropTypes.func,
+  saveCorrectProps: PropTypes.func,
   token: PropTypes.string,
 }.isRequired;
 
