@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
@@ -27,7 +27,7 @@ const mapStateToProps = (state) => ({
 Header.propTypes = {
   name: PropTypes.string,
   score: PropTypes.number,
-  // gravatarEmail: PropTypes.string,
+  gravatarEmail: PropTypes.string,
 }.isRequired;
 
 export default connect(mapStateToProps)(Header);

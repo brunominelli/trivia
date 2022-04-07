@@ -1,9 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
-import { fetchApi, setPlayer } from '../redux/action/index';
 import '../assets/login.css';
 import config from '../images/configuracao.png';
+import { fetchApi, setPlayer } from '../redux/action/index';
 
 class Login extends React.Component {
   constructor() {

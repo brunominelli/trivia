@@ -66,7 +66,9 @@ class Questions extends Component {
         resetTimer: false,
       });
     });
-    if (counter === trivia.length - 1) { history.push('feedback'); }
+    if (counter === trivia.length - 1) {
+      history.push('feedback');
+    }
   };
 
   handleDisabled = (time) => {
