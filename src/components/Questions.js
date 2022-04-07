@@ -16,6 +16,7 @@ class Questions extends Component {
       counter: 0,
       hasAnswered: false,
       isDisabled: false,
+      resetTimer: false,
     };
   }
 
@@ -57,9 +58,15 @@ class Questions extends Component {
     });
 
     this.setState((prevState) => ({
-      hasAnswered: false,
       counter: prevState.counter + 1,
-    }));
+      isDisabled: false,
+      resetTimer: true,
+    }), () => {
+      this.setState({
+        hasAnswered: false,
+        resetTimer: false,
+      });
+    });
   };
 
   handleDisabled = (time) => {
@@ -95,8 +102,24 @@ class Questions extends Component {
     });
   }
 
+  showAnswer = (hasAnswered, answer) => {
+    const { trivia, counter } = this.state;
+
+    if (hasAnswered) {
+      return answer === trivia[counter].correct_answer
+        ? 'true'
+        : 'false';
+    }
+  }
+
+  handleTimeout = () => {
+    this.setState({
+      hasAnswered: true,
+    });
+  }
+
   render() {
-    const { loading, trivia, counter, hasAnswered, isDisabled } = this.state;
+    const { loading, trivia, counter, hasAnswered, isDisabled, resetTimer } = this.state;
 
     return (
       <section className="container-questions">
@@ -135,13 +158,9 @@ class Questions extends Component {
                             ? 'correct-answer'
                             : `wrong-answer-${index}`
                         }
-                        id={
-                          answers[counter][index] === trivia[counter].correct_answer
-                            ? 'correct-answer'
-                            : `wrong-answer-${index}`
-                        }
                         type="button"
-                        className="div-answers"
+                        className={ `div-answers ${
+                          this.showAnswer(hasAnswered, answers[counter][index])}` }
                         disabled={ isDisabled }
                         onClick={ this.handleClickAnswer }
                         key={ index }
@@ -151,7 +170,12 @@ class Questions extends Component {
                     );
                   })}
               </div>
-              <Timer handleDisabled={ this.handleDisabled } />
+              <Timer
+                handleDisabled={ this.handleDisabled }
+                handleTimeout={ this.handleTimeout }
+                resetTimer={ resetTimer }
+                hasAnswered={ hasAnswered }
+              />
             </>
           )}
         {hasAnswered && this.displayButton()}
