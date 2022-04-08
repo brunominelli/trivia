@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../assets/questions.css';
-import { fetchApi, getQuestions, getScore, saveCorrect } from '../redux/action';
+import {
+  fetchApi, getQuestions, getScore,
+  resetCorrect, saveCorrect,
+} from '../redux/action';
 import * as api from '../services/api';
 import Timer from './Timer';
 
@@ -20,18 +23,23 @@ class Questions extends Component {
     };
   }
 
+  componentDidMount() {
+    const { token, resetCorrectProps } = this.props;
+    resetCorrectProps();
+    if (token.length > 0) this.receiveToken();
+  }
+
   componentDidUpdate(prevProps) {
     const { currentPoints } = this.state;
     const { token, getScoreProps } = this.props;
     if (token !== prevProps.token) {
       this.receiveToken();
-    }
-    if (currentPoints !== prevProps.currentPoints) { getScoreProps(currentPoints); }
+    } if (currentPoints !== prevProps.currentPoints) { getScoreProps(currentPoints); }
   }
 
   receiveToken = () => {
-    this.handleFetchTrivia();
     this.setState({ loading: false });
+    this.handleFetchTrivia();
   }
 
   handleFetchTrivia = async () => {
@@ -61,10 +69,7 @@ class Questions extends Component {
       isDisabled: false,
       resetTimer: true,
     }), () => {
-      this.setState({
-        hasAnswered: false,
-        resetTimer: false,
-      });
+      this.setState({ hasAnswered: false, resetTimer: false });
     });
     if (counter === trivia.length - 1) {
       history.push('feedback');
@@ -73,9 +78,7 @@ class Questions extends Component {
 
   handleDisabled = (time) => {
     if (time === 0) {
-      this.setState({
-        isDisabled: true,
-      });
+      this.setState({ isDisabled: true });
     }
   }
 
@@ -136,9 +139,7 @@ class Questions extends Component {
       }
     });
     this.handlePoints(target);
-    this.setState({
-      hasAnswered: true,
-    });
+    this.setState({ hasAnswered: true });
   }
 
   showAnswer = (hasAnswered, answer) => {
@@ -232,6 +233,7 @@ const mapDispatchToProps = (dispatch) => ({
   getQuestionsProps: (data) => dispatch(getQuestions(data)),
   getScoreProps: (score) => dispatch(getScore(score)),
   saveCorrectProps: (correct) => dispatch(saveCorrect(correct)),
+  resetCorrectProps: () => dispatch(resetCorrect()),
 });
 
 Questions.propTypes = {

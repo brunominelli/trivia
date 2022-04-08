@@ -4,7 +4,7 @@
 //   score: 'pontuação',
 //   gravatarEmail: 'email-da-pessoa',
 // };
-import { GET_SCORE, SAVE_CORRECT, SET_PLAYER } from '../action';
+import { GET_SCORE, RESET_CORRECT, SAVE_CORRECT, SET_PLAYER } from '../action';
 
 const INITIAL_STATE = {
   name: '',
@@ -30,6 +30,11 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       assertions: state.assertions + action.correct,
+    };
+  case RESET_CORRECT:
+    return {
+      ...state,
+      assertions: 0,
     };
   default:
     return state;

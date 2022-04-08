@@ -7,6 +7,7 @@ export const GET_TOKEN_FAILURE = 'GET_TOKEN_FAILURE';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 export const GET_SCORE = 'GET_SCORE';
 export const SAVE_CORRECT = 'SAVE_CORRECT';
+export const RESET_CORRECT = 'RESET_CORRECT';
 
 export const setPlayer = (name, gravatarEmail) => (
   { type: SET_PLAYER, name, gravatarEmail });
@@ -29,3 +30,4 @@ export function fetchApi() {
 export const getQuestions = (data) => ({ type: GET_QUESTIONS, data });
 export const getScore = (score) => ({ type: GET_SCORE, score });
 export const saveCorrect = (correct) => ({ type: SAVE_CORRECT, correct });
+export const resetCorrect = () => ({ type: RESET_CORRECT });
