@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Login from '../pages/Login';
-import Trivia from '../pages/Trivia';
 import Configuration from '../pages/Configuration';
 import Feedback from '../pages/Feedback';
+import Login from '../pages/Login';
+import Ranking from '../pages/Ranking';
+import Trivia from '../pages/Trivia';
 
 class WillOpen extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class WillOpen extends React.Component {
         <Route path="/trivia" component={ Trivia } />
         <Route path="/settings" component={ Configuration } />
         <Route path="/feedback" component={ Feedback } />
+        <Route path="/ranking" component={ Ranking } />
       </Switch>
     );
   }
