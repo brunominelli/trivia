@@ -4,9 +4,14 @@
   padding: 0;
 }
 
+::placeholder {
+  color: var(--first);
+  opacity: 1;
+}
+
 .container {
   align-items: center;
-  background-color: black;
+  background-color: var(--accent);
   display: flex;
   height: 1000px;
   justify-content: center;
@@ -15,13 +20,13 @@
 
 .container-login {
   align-items: center;
-  background-color: rgb(58, 58, 58);
-  border: 1px solid white;
+  background-color: var(--first);
+  border: 1px solid var(--second);
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: 350px;
   justify-content: center;
-  width: 300px;
+  width: 250px;
 }
 
 .container-config {
@@ -40,14 +45,20 @@
 
 .container-login-forms {
   align-items: center;
-  background-color: rgb(58, 58, 58);
+  background-color: var(--first);
   border: 1px solid white;
   border-top: 0 solid white;
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: 350px;
   justify-content: center;
-  width: 300px;
+  width: 250px;
+}
+
+.container-login-forms h1 {
+  color: var(--accent);
+  font-size: 36px;
+  margin-bottom: 12px;
 }
 
 .label-name {
@@ -55,7 +66,12 @@
 }
 
 .input-name {
+  background-color: var(--accent);
+  background-image: none;
+  border: none;
+  box-shadow: none;
   padding: 7px;
+  width: 210px;
 }
 
 .label-email {
@@ -63,11 +79,20 @@
 }
 
 .input-email {
+  background-color: var(--accent);
+  background-image: none;
+  border: none;
+  box-shadow: none;
   padding: 7px;
+  width: 210px;
 }
 
 .button-play {
+  background-color: var(--second);
+  color: var(--black);
+  font-size: 16px;
+  font-weight: 700;
   height: 30px;
   margin: 10px;
-  width: 100px;
+  width: 190px;
 }

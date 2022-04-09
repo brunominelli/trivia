@@ -1,0 +1,32 @@
+.header-container {
+  align-items: center;
+  background-color: var(--first);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.logo-name-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.header-gravatar {
+  border-radius: 100px;
+}
+
+.header-name {
+  color: var(--white);
+  font-size: 24px;
+  font-weight: 600;
+  padding-left: 24px;
+}
+
+.header-score {
+  color: var(--white);
+  font-size: 24px;
+  font-weight: 600;
+  padding-right: 24px;
+}
+
