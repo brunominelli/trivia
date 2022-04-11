@@ -1,7 +1,13 @@
 import React from 'react';
 import '../assets/configuracao.css';
+import '../assets/login.css';
 
 class Configuration extends React.Component {
+  redirectLogin = () => {
+    const { history } = this.props;
+    history.push('/');
+  }
+
   render() {
     return (
       <div className="divconteiner">
@@ -13,7 +19,7 @@ class Configuration extends React.Component {
             Categoria
             <br />
             <select className="inputOpition">
-              <option/>
+              <option />
             </select>
           </span>
           <br />
@@ -21,7 +27,7 @@ class Configuration extends React.Component {
             Dificuldade
             <br />
             <select className="inputOpition">
-              <option/>
+              <option />
             </select>
           </span>
           <br />
@@ -29,9 +35,17 @@ class Configuration extends React.Component {
             Tipo
             <br />
             <select className="inputOpition">
-              <option/>
+              <option />
             </select>
+            <br />
           </span>
+          <button
+            type="button"
+            onClick={ this.redirectLogin }
+            className="button"
+          >
+            Back
+          </button>
         </form>
       </div>
     );

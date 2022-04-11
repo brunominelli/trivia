@@ -1,10 +1,4 @@
 /* stylelint-disable linebreaks */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 ::placeholder {
   color: var(--first);
   opacity: 1;
@@ -14,6 +8,7 @@
   align-items: center;
   background-color: var(--first);
   display: flex;
+  flex-direction: column;
   height: 100vh;
   justify-content: center;
   width: 100vw;
@@ -26,9 +21,9 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  height: 50%;
+  height: 500px;
   justify-content: center;
-  width: 30%;
+  width: 400px;
 }
 
 .button-config {
@@ -36,9 +31,16 @@
   color: var(--second);
   cursor: pointer;
   display: flex;
-  height: 10%;
+  font-size: 40px;
   margin: 5%;
-  width: 40px;
+  min-height: 40px;
+  width: 10%;
+  transform: rotate(-0deg);
+  transition: 5s;
+}
+
+.button-config:hover {
+  transform: rotate(720deg);
 }
 
 .container-login-forms {
@@ -50,44 +52,60 @@
   width: 100%;
 }
 
+.inputs {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .container-login-forms h1 {
   color: var(--accent);
-  font-size: 36px;
+  font-size: 40px;
   margin-bottom: 12px;
 }
 
-.label-name {
-  padding: 10px;
+.label-name, .label-email {
+  padding-bottom: 12px;
 }
 
-.input-name {
+.input-name, .input-email {
   background-color: var(--accent);
   background-image: none;
   border: none;
+  border-radius: 10px;
   box-shadow: none;
-  padding: 7px;
-  width: 210px;
-}
-
-.label-email {
+  height: 50px;
   padding: 10px;
-}
-
-.input-email {
-  background-color: var(--accent);
-  background-image: none;
-  border: none;
-  box-shadow: none;
-  padding: 7px;
-  width: 210px;
+  width: 300px;
 }
 
 .button-play {
   background-color: var(--second);
-  color: var(--black);
-  font-size: 16px;
-  font-weight: 700;
-  height: 30px;
-  margin: 10px;
-  width: 190px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 600;
+  height: 3.5rem;
+  margin: auto;
+  margin-bottom: 4rem;
+  padding: 10px 0;
+  text-transform: uppercase;
+  transition: 0.5s;
+  width: 300px;
+}
+
+.button-play:hover {
+  background-color: var(--accent);
+}
+
+.button-play:disabled {
+  opacity: 50%;
+}
+
+.trivia-image {
+  margin-bottom: 32px;
+  width: 50%;
 }

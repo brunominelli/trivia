@@ -1,3 +1,4 @@
+import he from 'he';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -57,10 +58,10 @@ class Questions extends Component {
     }
   };
 
-  nextQuestion = ({ target }) => {
+  nextQuestion = () => {
     const { history } = this.props;
     const { trivia, counter } = this.state;
-    const arrayAnswers = target.parentNode.querySelector('.answer-container').childNodes;
+    const arrayAnswers = document.querySelector('.answer-container').childNodes;
     arrayAnswers.forEach((element) => {
       element.classList.remove('true', 'false');
     });
@@ -178,7 +179,7 @@ class Questions extends Component {
                     data-testid="question-text"
                     className="question-text"
                   >
-                    { trivia.length > 0 && trivia[counter].question }
+                    { he.decode(`${trivia.length > 0 && trivia[counter].question}`) }
                   </h2>
                 </div>
               </div>
@@ -209,7 +210,7 @@ class Questions extends Component {
                         onClick={ this.handleClickAnswer }
                         key={ index }
                       >
-                        {answers[counter][index]}
+                        {he.decode(`${answers[counter][index]}`)}
                       </button>
                     );
                   })}

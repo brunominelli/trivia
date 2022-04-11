@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import PropTypes from 'prop-types';
 import React from 'react';
 import { GoGear } from 'react-icons/go';
@@ -54,43 +55,49 @@ class Login extends React.Component {
             onClick={ () => { history.push('/settings'); } }
           />
           <div className="container-login-forms">
-            <h1>Sign In</h1>
-            <label className="label-name" htmlFor="name">
-              <input
-                id="name"
-                className="input-name"
-                type="text"
-                value={ name }
-                name="name"
-                data-testid="input-player-name"
-                placeholder="Type your name"
-                onChange={ this.handleChange }
-              />
-            </label>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/2/27/Trivia.png"
+              width={ 200 }
+              alt="trivia"
+              className="trivia-image"
+            />
+            <div className="inputs">
+              <label className="label-name" htmlFor="name">
+                <input
+                  id="name"
+                  className="input-name"
+                  type="text"
+                  value={ name }
+                  name="name"
+                  data-testid="input-player-name"
+                  placeholder="Type your name"
+                  onChange={ this.handleChange }
+                />
+              </label>
 
-            <label className="label-email" htmlFor="email">
-              <input
-                id="email"
-                className="input-email"
-                type="email"
-                value={ email }
-                name="email"
-                data-testid="input-gravatar-email"
-                placeholder="Type your email"
-                onChange={ this.handleChange }
-              />
-            </label>
-
-            <button
-              data-testid="btn-play"
-              type="button"
-              className="button-play"
-              disabled={ isDisable }
-              onClick={ this.handleClick }
-            >
-              Play
-            </button>
+              <label className="label-email" htmlFor="email">
+                <input
+                  id="email"
+                  className="input-email"
+                  type="email"
+                  value={ email }
+                  name="email"
+                  data-testid="input-gravatar-email"
+                  placeholder="Type your email"
+                  onChange={ this.handleChange }
+                />
+              </label>
+            </div>
           </div>
+          <button
+            data-testid="btn-play"
+            type="button"
+            className="button-play"
+            disabled={ isDisable }
+            onClick={ this.handleClick }
+          >
+            Play
+          </button>
         </div>
       </section>
     );

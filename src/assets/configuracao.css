@@ -1,20 +1,24 @@
 .divconteiner {
   align-items: center;
-  background-color: rgb(183, 183, 183);
+  background-color:  var(--first);
   display: flex;
-  height: 1000px;
+  height: 100vh;
   justify-content: center;
   width: 100%;
 }
 
 .hconfig {
   padding: 30px;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--accent);
   display: flex;
   flex-direction: column;
   height: 400px;
   justify-content: center;
-  width: 300px;
+  width: 300px;  
+}
+
+.hconfig h1 {
+ color: var(--first);
 }
 
 .h1config {
@@ -25,8 +29,29 @@
 }
 
 .inputOpition {
-  height: 70%;
-  width: 95%;
+  height: 40px;
+  width: 240px;
   background-color: rgb(183, 183, 183);
   margin-top: 5px;
+}
+
+.button {
+  background-color: var(--second);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+  color: var(--first);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+  height: 3.5rem;  
+  margin: 1rem;
+  padding: 5px 5px;
+  text-transform: uppercase;
+  transition: 1s
+}
+
+.button:hover {
+  background-color: var(--first);
+  color: var(--second);
 }
