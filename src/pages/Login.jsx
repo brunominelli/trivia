@@ -62,6 +62,7 @@ class Login extends React.Component {
             </button>
           </div>
           <div className="container-login-forms">
+            <h1>Sign In</h1>
             <label className="label-name" htmlFor="name">
               <input
                 id="name"
