@@ -1,0 +1,32 @@
+.divconteiner {
+  align-items: center;
+  background-color: rgb(183, 183, 183);
+  display: flex;
+  height: 1000px;
+  justify-content: center;
+  width: 100%;
+}
+
+.hconfig {
+  padding: 30px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  justify-content: center;
+  width: 300px;
+}
+
+.h1config {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.inputOpition {
+  height: 70%;
+  width: 95%;
+  background-color: rgb(183, 183, 183);
+  margin-top: 5px;
+}
