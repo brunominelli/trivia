@@ -84,6 +84,7 @@ class Questions extends Component {
 
   displayButton = () => (
     <button
+      className="btn-next"
       data-testid="btn-next"
       type="button"
       onClick={ this.nextQuestion }
@@ -164,25 +165,30 @@ class Questions extends Component {
         {loading
           ? (<div>Carregando...</div>)
           : (
-            <>
-              <div className="question-container">
-                <h3
-                  data-testid="question-category"
-                >
-                  { trivia.length > 0 && trivia[counter].category }
-                </h3>
-                <h2
-                  data-testid="question-text"
-                >
-                  { trivia.length > 0 && trivia[counter].question }
-                </h2>
+            <div className="main-questions">
+              <div className="left-side">
+                <div className="question-container">
+                  <h3
+                    data-testid="question-category"
+                    className="question-category"
+                  >
+                    { trivia.length > 0 && trivia[counter].category }
+                  </h3>
+                  <h2
+                    data-testid="question-text"
+                    className="question-text"
+                  >
+                    { trivia.length > 0 && trivia[counter].question }
+                  </h2>
+                </div>
               </div>
-              <div
-                className="answer-container"
-                data-testid="answer-options"
-              >
-                {/* Referência randomizar array: https://flaviocopes.com/how-to-shuffle-array-javascript/ */}
-                { trivia.length > 0
+              <div className="right-side">
+                <div
+                  className="answer-container"
+                  data-testid="answer-options"
+                >
+                  {/* Referência randomizar array: https://flaviocopes.com/how-to-shuffle-array-javascript/ */}
+                  { trivia.length > 0
                   && [
                     trivia[counter].correct_answer,
                     ...trivia[counter].incorrect_answers,
@@ -207,17 +213,20 @@ class Questions extends Component {
                       </button>
                     );
                   })}
+                </div>
+                <div className="timer-and-next">
+                  <Timer
+                    handleDisabled={ this.handleDisabled }
+                    handleTimeout={ this.handleTimeout }
+                    resetTimer={ resetTimer }
+                    hasAnswered={ hasAnswered }
+                    handleTimer={ this.handleTimer }
+                  />
+                  {hasAnswered && this.displayButton()}
+                </div>
               </div>
-              <Timer
-                handleDisabled={ this.handleDisabled }
-                handleTimeout={ this.handleTimeout }
-                resetTimer={ resetTimer }
-                hasAnswered={ hasAnswered }
-                handleTimer={ this.handleTimer }
-              />
-            </>
+            </div>
           )}
-        {hasAnswered && this.displayButton()}
       </section>
     );
   }
