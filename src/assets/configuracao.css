@@ -1,6 +1,8 @@
+/* stylelint-disable order/properties-alphabetical-order */
+/* stylelint-disable linebreaks */
 .divconteiner {
   align-items: center;
-  background-color:  var(--first);
+  background-color: var(--first);
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -14,7 +16,7 @@
   flex-direction: column;
   height: 400px;
   justify-content: center;
-  width: 300px;  
+  width: 300px;
 }
 
 .hconfig h1 {
@@ -44,11 +46,11 @@
   cursor: pointer;
   font-size: 18px;
   font-weight: 500;
-  height: 3.5rem;  
+  height: 3.5rem;
   margin: 1rem;
   padding: 5px 5px;
   text-transform: uppercase;
-  transition: 1s
+  transition: 1s;
 }
 
 .button:hover {
