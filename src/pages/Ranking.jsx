@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { readFeedback } from '../services/localStorage';
+import style from '../assets/Ranking.module.css';
 
 class Ranking extends Component {
   redirectLogin = () => {
@@ -16,8 +17,12 @@ class Ranking extends Component {
     return (
       <>
         {list.map((feedback, index) => (
-          <div key={ index }>
-            <img src={ feedback.picture } alt="Gravatar" />
+          <div key={ index } className={ style.ranking_player }>
+            <img
+              src={ feedback.picture }
+              alt="Gravatar"
+              className={ style.player_image }
+            />
             <div
               data-testid={ `player-name-${index}` }
             >
@@ -36,25 +41,26 @@ class Ranking extends Component {
 
   render() {
     return (
-      <div>
+      <div className={ style.container }>
         <h1
           data-testid="ranking-title"
+          className={ style.ranking_title }
         >
           Ranking
         </h1>
-        <div>
+        <div className={ style.wrapper }>
           { readFeedback().length === 0
             ? <div>Ranking vazio</div>
             : this.handleRanking()}
-
+          <button
+            data-testid="btn-go-home"
+            type="button"
+            onClick={ this.redirectLogin }
+            className={ style.button_play_again }
+          >
+            Play Again
+          </button>
         </div>
-        <button
-          data-testid="btn-go-home"
-          type="button"
-          onClick={ this.redirectLogin }
-        >
-          Play Again
-        </button>
       </div>
     );
   }
