@@ -1,65 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap') ;
 
-*,
-*::after,
-*::before {
+*, *:after, *:before {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 :root {
-  --primary-color: #14213D;
-  --secondary-color: #FCA311;
-  --black: #000000;
-  --grey: #E5E5E5;
-  --white: #FFFFFF;
+
+  --primary-color: #14213d;
+
+  --secondary-color: #fca311;
+
+  --black: black;
+
+  --grey: #e5e5e5;
+
+  --white: white;
 }
 
 .container {
+  align-items: center;
+  background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--primary-color);
-  font-family: 'Poppins', sans-serif;
-  width: 100vw;
+  font-family: Poppins , sans-serif;
   height: 100vh;
+  justify-content: center;
+  width: 100vw;
 }
 
 .wrapper {
+  align-items: center;
+  background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  background-color: var(--primary-color);
   width: 75%;
 }
 
 .ranking_title {
-  font-family: 'Montserrat', sans-serif;
+  color: var(--white);
+  font-family: Montserrat , sans-serif;
+  font-size: 40px;
   font-style: normal;
   font-weight: 600;
-  font-size: 40px;
   line-height: 49px;
-  color: var(--white);
 }
 
 .ranking_player {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 39px;
+  background-color: var(--white);
   border: 1px solid black;
   border-radius: 10px;
-  width: 100%;
+  display: flex;
+  font-family: Montserrat , sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  justify-content: space-between;
+  line-height: 39px;
   margin: 16px;
   padding: 8px;
-  background-color: var(--white);
+  width: 100%;
 }
 
 .player_image {
@@ -68,19 +71,19 @@
 }
 
 .button_play_again {
+  background-color: var(--secondary-color);
   border: none;
+  border-radius: 10px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 600;
-  font-size: 32px;
-  text-align: center;
-  margin: 16px;
-  width: 100%;
   height: 70px;
-  background: #FCA311;
-  border-radius: 10px;
+  margin: 16px;
+  text-align: center;
   transition: 1s;
+  width: 100%;
 }
 
 .button_play_again:hover {
-  background-color: #E5E5E5;
+  background-color: var(--grey);
 }
