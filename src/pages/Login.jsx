@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { GoGear } from 'react-icons/go';
 import { connect } from 'react-redux';
 import '../assets/login.css';
-import config from '../images/configuracao.png';
 import { fetchApi, setPlayer } from '../redux/action/index';
 
 class Login extends React.Component {
@@ -47,21 +47,14 @@ class Login extends React.Component {
     return (
       <section className="container">
         <div className="container-login">
-          <div className="container-config">
-            <button
-              data-testid="btn-settings"
-              className="button-config"
-              type="button"
-              onClick={ () => { history.push('/settings'); } }
-            >
-              <img
-                className="image-config"
-                src={ config }
-                alt="configuração"
-              />
-            </button>
-          </div>
+          <GoGear
+            data-testid="btn-settings"
+            className="button-config"
+            type="button"
+            onClick={ () => { history.push('/settings'); } }
+          />
           <div className="container-login-forms">
+            <h1>Sign In</h1>
             <label className="label-name" htmlFor="name">
               <input
                 id="name"

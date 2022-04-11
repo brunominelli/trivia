@@ -1,53 +1,64 @@
+/* stylelint-disable linebreaks */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+body {
+  background-color: ;
+}
+
+::placeholder {
+  color: var(--first);
+  opacity: 1;
+}
+
 .container {
   align-items: center;
-  background-color: black;
+  background-color: var(--first);
   display: flex;
-  height: 1000px;
+  height: 100vh;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
 }
 
 .container-login {
-  align-items: center;
-  background-color: rgb(58, 58, 58);
-  border: 1px solid white;
+  align-items: flex-end;
+  background-color: var(--first);
+  border: 3px solid var(--second);
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: 50%;
   justify-content: center;
-  width: 300px;
-}
-
-.container-config {
-  align-items: center;
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
+  width: 30%;
 }
 
 .button-config {
-  background-color: white;
-  border: 1px solid white;
+  background-color: var(--first);
+  color: var(--second);
   cursor: pointer;
-  margin: 10px;
+  height: 40px;
+  justify-self: flex-start;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 40px;
 }
 
 .container-login-forms {
   align-items: center;
-  background-color: rgb(58, 58, 58);
-  border: 1px solid white;
-  border-top: 0 solid white;
+  background-color: var(--first);
   display: flex;
   flex-direction: column;
-  height: 400px;
   justify-content: center;
-  width: 300px;
+  width: 100%;
+}
+
+.container-login-forms h1 {
+  color: var(--accent);
+  font-size: 36px;
+  margin-bottom: 12px;
 }
 
 .label-name {
@@ -55,7 +66,12 @@
 }
 
 .input-name {
+  background-color: var(--accent);
+  background-image: none;
+  border: none;
+  box-shadow: none;
   padding: 7px;
+  width: 210px;
 }
 
 .label-email {
@@ -63,11 +79,20 @@
 }
 
 .input-email {
+  background-color: var(--accent);
+  background-image: none;
+  border: none;
+  box-shadow: none;
   padding: 7px;
+  width: 210px;
 }
 
 .button-play {
+  background-color: var(--second);
+  color: var(--black);
+  font-size: 16px;
+  font-weight: 700;
   height: 30px;
   margin: 10px;
-  width: 100px;
+  width: 190px;
 }

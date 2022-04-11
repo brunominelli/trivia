@@ -1,0 +1,71 @@
+/* stylelint-disable linebreaks */
+
+/* stylelint-disable custom-property-empty-line-before */
+.container {
+  align-items: center;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  font-family: Poppins , sans-serif;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.wrapper {
+  align-items: center;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 75%;
+}
+
+.ranking_title {
+  color: var(--white);
+  font-family: Montserrat , sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 49px;
+}
+
+.ranking_player {
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  font-family: Montserrat , sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  justify-content: space-between;
+  line-height: 39px;
+  margin: 16px;
+  padding: 8px;
+  width: 100%;
+}
+
+.player_image {
+  border-radius: 50%;
+  width: 32px;
+}
+
+.button_play_again {
+  background-color: var(--secondary-color);
+  border: none;
+  border-radius: 10px;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  height: 70px;
+  margin: 16px;
+  text-align: center;
+  transition: 1s;
+  width: 100%;
+}
+
+.button_play_again:hover {
+  background-color: var(--grey);
+}
