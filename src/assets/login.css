@@ -5,6 +5,10 @@
   padding: 0;
 }
 
+body {
+  background-color: ;
+}
+
 ::placeholder {
   color: var(--first);
   opacity: 1;
@@ -12,48 +16,43 @@
 
 .container {
   align-items: center;
-  background-color: var(--accent);
+  background-color: var(--first);
   display: flex;
-  height: 1000px;
+  height: 100vh;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
 }
 
 .container-login {
-  align-items: center;
+  align-items: flex-end;
   background-color: var(--first);
-  border: 1px solid var(--second);
+  border: 3px solid var(--second);
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
-  height: 350px;
+  height: 50%;
   justify-content: center;
-  width: 250px;
-}
-
-.container-config {
-  align-items: center;
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
+  width: 30%;
 }
 
 .button-config {
-  background-color: white;
-  border: 1px solid white;
+  background-color: var(--first);
+  color: var(--second);
   cursor: pointer;
-  margin: 10px;
+  height: 40px;
+  justify-self: flex-start;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 40px;
 }
 
 .container-login-forms {
   align-items: center;
   background-color: var(--first);
-  border: 1px solid white;
-  border-top: 0 solid white;
   display: flex;
   flex-direction: column;
-  height: 350px;
   justify-content: center;
-  width: 250px;
+  width: 100%;
 }
 
 .container-login-forms h1 {
