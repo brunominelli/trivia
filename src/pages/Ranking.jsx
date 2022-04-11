@@ -52,15 +52,15 @@ class Ranking extends Component {
           { readFeedback().length === 0
             ? <div>Ranking vazio</div>
             : this.handleRanking()}
+          <button
+            data-testid="btn-go-home"
+            type="button"
+            onClick={ this.redirectLogin }
+            className={ style.button_play_again }
+          >
+            Play Again
+          </button>
         </div>
-        <button
-          data-testid="btn-go-home"
-          type="button"
-          onClick={ this.redirectLogin }
-          className={ style.button_play_again }
-        >
-          Play Again
-        </button>
       </div>
     );
   }
