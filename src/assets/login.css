@@ -5,10 +5,6 @@
   padding: 0;
 }
 
-body {
-  background-color: ;
-}
-
 ::placeholder {
   color: var(--first);
   opacity: 1;
@@ -36,21 +32,20 @@ body {
 }
 
 .button-config {
-  background-color: var(--first);
+  align-items: center;
   color: var(--second);
   cursor: pointer;
-  height: 40px;
-  justify-self: flex-start;
-  margin-right: 10px;
-  margin-top: 10px;
+  display: flex;
+  height: 10%;
+  margin: 5%;
   width: 40px;
 }
 
 .container-login-forms {
   align-items: center;
-  background-color: var(--first);
   display: flex;
   flex-direction: column;
+  height: 90%;
   justify-content: center;
   width: 100%;
 }
