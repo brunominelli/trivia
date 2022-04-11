@@ -1,0 +1,88 @@
+/* stylelint-disable linebreaks */
+.wrapper {
+  align-items: center;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px);
+  justify-content: center;
+  width: 100vw;
+}
+
+.text__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  font-weight: 400;
+  height: 50%;
+  justify-content: center;
+  width: 100vw;
+}
+
+.text__container__message {
+  align-items: center;
+  display: flex;
+  font-size: 34px;
+  font-weight: 600;
+  height: 50%;
+  justify-content: center;
+  width: 100vw;
+}
+
+.text__container__assertions {
+  margin: 12px 0;
+}
+
+.button__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  margin-top: 5%;
+  width: 100vw;
+}
+
+.button__container button {
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  font-size: 28px;
+  font-weight: 600;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  width: 300px;
+}
+
+.button__ranking {
+  background-color: var(--accent);
+  border: 2px solid var(--first);
+  color: var(--first);
+}
+
+.button__ranking:hover {
+  background-color: var(--first);
+  color: var(--white);
+}
+
+.button__playAgain {
+  background-color: var(--second);
+  border: none;
+  color: var(--first);
+}
+
+@media ( min-width : 768px ) {
+
+  .button__container {
+    margin-top: 2.5%;
+  }
+
+  .text__container {
+    font-size: 36px;
+  }
+
+  .text__container__message {
+    font-size: 48px;
+  }
+}

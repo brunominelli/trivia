@@ -2,6 +2,7 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styles from '../assets/Feedback.module.css';
 import Header from '../components/Header';
 import { readFeedback, saveFeedback } from '../services/localStorage';
 
@@ -49,36 +50,46 @@ class Feedback extends Component {
     return (
       <>
         <Header />
-        <div
-          data-testid="feedback-text"
-        >
-          {assertionsProps >= minimumAssertions
-            ? 'Well Done!' : 'Could be better...'}
+        <div className={ styles.wrapper }>
+          <div className={ styles.text__container }>
+            <div
+              data-testid="feedback-text"
+              className={ styles.text__container__message }
+            >
+              {assertionsProps >= minimumAssertions
+                ? 'Mandou bem!' : 'Podia ser melhor...'}
+            </div>
+            <div
+              data-testid="feedback-total-question"
+              className={ styles.text__container__assertions }
+            >
+              {`Você acertou ${assertionsProps} questões!`}
+            </div>
+            <div
+              data-testid="feedback-total-score"
+            >
+              {`Um total de ${scoreProps} pontos`}
+            </div>
+          </div>
+          <div className={ styles.button__container }>
+            <button
+              className={ styles.button__ranking }
+              data-testid="btn-ranking"
+              type="button"
+              onClick={ this.redirectRanking }
+            >
+              Ranking
+            </button>
+            <button
+              className={ styles.button__playAgain }
+              data-testid="btn-play-again"
+              type="button"
+              onClick={ this.redirectLogin }
+            >
+              Play Again
+            </button>
+          </div>
         </div>
-        <div
-          data-testid="feedback-total-question"
-        >
-          {assertionsProps}
-        </div>
-        <div
-          data-testid="feedback-total-score"
-        >
-          {scoreProps}
-        </div>
-        <button
-          data-testid="btn-play-again"
-          type="button"
-          onClick={ this.redirectLogin }
-        >
-          Play Again
-        </button>
-        <button
-          data-testid="btn-ranking"
-          type="button"
-          onClick={ this.redirectRanking }
-        >
-          Ranking
-        </button>
       </>
     );
   }
