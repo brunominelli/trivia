@@ -8,7 +8,11 @@ A aplicação é composta por 5 perguntas de múltipla escolha que devem ser res
 
 Esta aplicação foi desenvolvida juntamente com as seguintes pessoas desenvolvedoras:
 
-* Arthur Barbosa.: [LinkedIn](https://www.linkedin.com/in/arthurbarbosaoliveira/)
-* Bryan Fernandes: [LinkedIn](https://www.linkedin.com/in/bryan-edward-fernandes/)
-* Paulo Gusmão...: [LinkedIn](https://www.linkedin.com/in/paulo-gusmao/)
-* Rafael Barbosa.: [LinkedIn](https://www.linkedin.com/in/rafaeldemourabarbosa/)
+* Arthur Barbosa
+  [LinkedIn](https://www.linkedin.com/in/arthurbarbosaoliveira/)
+* Bryan Fernandes
+  [LinkedIn](https://www.linkedin.com/in/bryan-edward-fernandes/)
+* Paulo Gusmão
+  [LinkedIn](https://www.linkedin.com/in/paulo-gusmao/)
+* Rafael Barbosa
+  [LinkedIn](https://www.linkedin.com/in/rafaeldemourabarbosa/)
